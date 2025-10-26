@@ -29,16 +29,16 @@ This system uses **ridge regression** with **nested cross-validation** to predic
 
 ## Key Features
 
-✅ **Complete Implementation** of Dhamala et al. (2021) methodology  
-✅ **Synthetic Data Generation** for immediate usability (no data access barriers)  
-✅ **Ridge Regression** with nested cross-validation  
-✅ **100 Train/Test Splits** for robust performance estimation  
-✅ **Permutation Testing** for statistical significance  
-✅ **Feature Importance** extraction using Haufe et al. (2014) activation patterns  
-✅ **Publication-Quality Visualizations**  
-✅ **Comprehensive HTML Reports**  
-✅ **CPU-Optimized** (no GPU required)  
-✅ **Modular Architecture** (25 files, 2000+ lines of code)  
+**Complete Implementation** of Dhamala et al. (2021) methodology  
+**Synthetic Data Generation** for immediate usability (no data access barriers)  
+**Ridge Regression** with nested cross-validation  
+**100 Train/Test Splits** for robust performance estimation  
+**Permutation Testing** for statistical significance  
+**Feature Importance** extraction using Haufe et al. (2014) activation patterns  
+**Publication-Quality Visualizations**  
+**Comprehensive HTML Reports**  
+**CPU-Optimized** (no GPU required)  
+**Modular Architecture** (25 files, 2000+ lines of code)  
 
 ---
 
