@@ -1,0 +1,44 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: "Hanouneh"
+    given-names: "Jamil"
+    email: jamil.hanouneh1997@gmail.com
+    affiliation: "Friedrich-Alexander-Universität Erlangen-Nürnberg"
+    orcid: "https://orcid.org/YOUR-ORCID-ID"  # Optional: Add your ORCID
+title: "Brain Connectivity-Based Cognitive Prediction: A Production-Ready Pipeline"
+version: 1.0.0
+date-released: 2025-10-26
+url: "https://github.com/JamilHanouneh/brain-connectivity-prediction"
+repository-code: "https://github.com/JamilHanouneh/brain-connectivity-prediction"
+license: MIT
+keywords:
+  - brain-connectivity
+  - cognitive-prediction
+  - machine-learning
+  - neuroimaging
+  - fMRI
+  - diffusion-MRI
+  - ridge-regression
+  - connectomics
+  - computational-neuroscience
+references:
+  - authors:
+      - family-names: "Dhamala"
+        given-names: "Elvisha"
+      - family-names: "Jamison"
+        given-names: "Keith W."
+      - family-names: "Jaywant"
+        given-names: "Abhishek"
+      - family-names: "Dennis"
+        given-names: "Sarah"
+      - family-names: "Kuceyeski"
+        given-names: "Amy"
+    title: "Distinct functional and structural connections predict crystallised and fluid cognition in healthy adults"
+    type: article
+    journal: "Brain Structure and Function"
+    volume: 226
+    year: 2021
+    start: 1669
+    end: 1691
+    doi: "10.1007/s00429-021-02289-6"
