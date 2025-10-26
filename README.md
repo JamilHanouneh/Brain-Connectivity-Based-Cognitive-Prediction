@@ -430,7 +430,7 @@ For more help, see [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) or open an issu
 
 ---
 
-## 📊 Project Status
+## Project Status
 
 - Core pipeline implementation complete
 - Synthetic data generation working
@@ -445,7 +445,7 @@ For more help, see [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) or open an issu
 
 ## Star History
 
-If you find this project useful, please consider giving it a star ⭐!
+If you find this project useful, please consider giving it a star!
 
 ---
 
