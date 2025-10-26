@@ -46,4 +46,26 @@ Open an issue with:
 - Test on multiple platforms if possible
 
 ## Development Setup
+Clone your fork
+git clone https://github.com/YOUR_USERNAME/brain-connectivity-prediction.git
+cd brain-connectivity-prediction
 
+Create virtual environment
+python -m venv venv
+source venv/bin/activate # Linux/macOS
+
+or
+venv\Scripts\activate # Windows
+
+Install development dependencies
+pip install -r requirements.txt
+pip install -r requirements-dev.txt # If available
+
+Run tests
+python tests/test_project.py
+
+text
+
+## Questions?
+
+Contact: jamil.hanouneh1997@gmail.com
