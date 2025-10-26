@@ -1,0 +1,208 @@
+# ==================================================================================
+# Brain Connectivity-Based Cognitive Prediction - Configuration File
+# Based on: Dhamala et al. (2021) - Distinct functional and structural connections
+# predict crystallised and fluid cognition in healthy adults
+# ==================================================================================
+
+# Project metadata
+project:
+  name: "brain_cognition_prediction"
+  version: "1.0.0"
+  description: "Predict cognitive abilities from brain connectivity patterns"
+  citation: "Dhamala, E., et al. (2021). Brain Structure and Function, 226, 1669-1691."
+
+# Data configuration
+data:
+  # Raw data directories
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  
+  # Dataset parameters
+  n_subjects: 415  # Number of subjects (matching paper)
+  n_regions: 86    # Number of brain regions (FreeSurfer parcellation)
+  
+  # Connectivity types to analyze
+  connectivity_types:
+    - "FC"  # Functional connectivity
+    - "SC"  # Structural connectivity
+    - "HC"  # Hybrid connectivity (FC + SC)
+  
+  # Cognitive scores to predict
+  cognitive_targets:
+    - "Crystallized"  # Language, vocabulary
+    - "Fluid"        # Processing speed, working memory
+    - "Total"        # Overall cognition
+  
+  # Data generation (if using synthetic data)
+  synthetic:
+    use_synthetic: true  # Set to false if using real HCP data
+    seed: 42
+    
+    # Cognitive score distributions (from paper's Table 1)
+    cognitive_scores:
+      Crystallized:
+        mean: 109.52
+        std: 8.43
+        min: 85
+        max: 130
+      Fluid:
+        mean: 109.58
+        std: 10.20
+        min: 80
+        max: 140
+      Total:
+        mean: 110.05
+        std: 8.86
+        min: 85
+        max: 135
+    
+    # Connectivity matrix properties
+    fc_properties:
+      mean_correlation: 0.15  # Average FC correlation
+      std_correlation: 0.25
+      sparsity: 0.3          # Proportion of weak connections
+    
+    sc_properties:
+      mean_strength: 0.05    # Average SC streamline density
+      std_strength: 0.08
+      sparsity: 0.6          # SC is sparser than FC
+
+# Preprocessing configuration
+preprocessing:
+  # Functional connectivity
+  fc:
+    fisher_z_transform: true   # Apply Fisher z-transformation
+    threshold: 0.0             # Minimum correlation threshold
+    remove_diagonal: true      # Remove self-connections
+  
+  # Structural connectivity
+  sc:
+    log_transform: true        # Apply log transformation
+    normalize: true            # Normalize to [0, 1] range
+    remove_diagonal: true
+  
+  # Hybrid connectivity
+  hc:
+    fc_weight: 0.5            # Weight for FC in hybrid model
+    sc_weight: 0.5            # Weight for SC in hybrid model
+    concatenation: "upper_lower"  # "upper_lower" or "weighted_average"
+
+# Model configuration
+model:
+  # Ridge regression parameters
+  ridge:
+    alpha_range: [0.001, 0.01, 0.1, 1.0, 10.0, 100.0, 1000.0, 10000.0]  # Regularization parameters to test
+    normalize_features: true   # Normalize connectivity features
+    fit_intercept: true
+  
+  # Cross-validation settings
+  cross_validation:
+    n_iterations: 5           # Number of CV iterations (paper uses 5)
+    n_folds_outer: 3          # Outer CV folds (paper uses 3)
+    n_folds_inner: 3          # Inner CV folds for hyperparameter tuning
+    shuffle: true
+    random_seed: 42
+  
+  # Train/test splits
+  train_test:
+    n_splits: 100             # Number of random splits (paper uses 100)
+    test_size: 0.2            # 80/20 train/test split
+    random_seed: 42
+  
+  # Feature importance
+  feature_importance:
+    method: "haufe"           # Haufe et al. (2014) activation patterns
+    compute: true
+
+# Statistical testing configuration
+statistics:
+  # Permutation testing
+  permutation:
+    n_permutations: 1000      # Number of permutations (paper uses 25,000; reduced for speed)
+    test_type: "two_sided"
+    random_seed: 42
+  
+  # Multiple comparison correction
+  multiple_comparison:
+    method: "fdr_bh"          # Benjamini-Hochberg FDR correction
+    alpha: 0.05
+  
+  # Model comparison
+  comparison:
+    method: "exact_test"      # Exact test for paired samples
+    n_bootstrap: 1000
+
+# Visualization configuration
+visualization:
+  # Figure settings
+  figures:
+    dpi: 300                  # Publication quality
+    format: "png"             # Output format
+    style: "seaborn-v0_8-whitegrid"
+    font_size: 10
+    save_svg: true            # Also save as SVG
+  
+  # Plot types to generate
+  plots:
+    - "performance_violin"    # Violin plots of explained variance
+    - "performance_boxplot"   # Boxplots of R² across iterations
+    - "comparison_heatmap"    # Heatmap of model comparisons
+    - "feature_importance"    # Feature importance matrices
+    - "scatter_prediction"    # Predicted vs. actual scatter plots
+    - "regional_importance"   # Brain region importance
+  
+  # Color schemes
+  colors:
+    FC: "#FF6B6B"            # Red for functional connectivity
+    SC: "#4ECDC4"            # Cyan for structural connectivity
+    HC: "#95E1D3"            # Green for hybrid connectivity
+
+# Output configuration
+output:
+  # Directory structure
+  dirs:
+    models: "outputs/models"
+    results: "outputs/results"
+    figures: "outputs/figures"
+    reports: "outputs/reports"
+    logs: "outputs/logs"
+  
+  # Save options
+  save:
+    models: true              # Save trained model weights
+    predictions: true         # Save all predictions
+    feature_importance: true  # Save feature importance matrices
+    intermediate: false       # Save intermediate processing steps
+  
+  # Report generation
+  report:
+    format: "html"
+    include_figures: true
+    include_statistics: true
+    template: "default"
+
+# Logging configuration
+logging:
+  level: "INFO"              # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "outputs/logs/pipeline.log"
+  console: true
+
+# Computational settings
+computation:
+  # Parallelization
+  n_jobs: -1                 # Use all available CPU cores (-1)
+  backend: "loky"            # joblib backend
+  
+  # Memory management
+  batch_size: 50             # Process subjects in batches
+  low_memory_mode: false     # Enable for large datasets
+  
+  # Progress tracking
+  verbose: 1                 # Verbosity level (0=silent, 1=progress, 2=detailed)
+
+# Reproducibility
+reproducibility:
+  set_seeds: true
+  global_seed: 42
+  deterministic: true        # Ensure deterministic behavior
