@@ -7,10 +7,6 @@
 
 Machine learning pipeline to predict crystallized and fluid cognition from functional and structural brain connectivity. Complete Python implementation with 100 train/test splits, permutation testing, and automated HTML reports.
 
-<p align="center">
-  <img src="docs/pipeline_overview.png" alt="Pipeline Overview" width="800"/>
-</p>
-
 ---
 
 ## Overview
